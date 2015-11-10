@@ -44,7 +44,7 @@ inline static int _llex_find_next_token(llex *lex)
 
 		if ((t->type == LLEX_LITERAL_TOKEN || t->type == LLEX_LITERAL_TOKEN_CALLBACK)
 			&& lex->buffer_pos[0] == t->token.literal.str[0]
-			&& strncmp((char*)lex->buffer_pos, (char*)t->token.literal.str, t->token.literal.len) == 0) {
+			&& strncmp(lex->buffer_pos, t->token.literal.str, t->token.literal.len) == 0) {
 				
 			lex->current_token = lex->buffer_pos;
 			lex->current_len = t->token.literal.len;

@@ -24,7 +24,7 @@ typedef struct _llex llex;
 #define LLEX_FASTCALL
 #endif
 
-typedef int (LLEX_FASTCALL *llex_callback)(llex*, unsigned char*, size_t); 
+typedef int (LLEX_FASTCALL *llex_callback)(llex*, char*, size_t); 
 
 typedef enum {
 	LLEX_LITERAL_TOKEN,          /* Literal token */	
@@ -37,7 +37,7 @@ typedef struct {
 	llex_token_type type;	
 	union {
 		struct {
-			unsigned char *str;
+			char *str;
 			size_t len;	
 		} literal;
 		pcre *regex;
@@ -53,25 +53,25 @@ typedef struct {
 	unsigned int tokens_count;         /* Number of used tokens */
 } llex_token_array;
 
-typedef struct _llex {
-	unsigned char *buffer;                        /* Buffer to be read */
-	unsigned char *buffer_pos;                    /* Current buffer position */
-	unsigned char *current_token;                 /* Current token */
-	size_t current_len;                           /* Current token length */
+struct _llex {
+	char *buffer;                                 /* Buffer to be read */
+	char *buffer_pos;                             /* Current buffer position */
+	char *current_token;                          /* Current token */
+	int current_len;                              /* Current token length */
 	unsigned int current_state;                   /* Current state */
 	llex_token_array token_array[LLEX_MAX_STATE]; /* Tokens by states */
 	unsigned int options;                         /* Flags */
-} llex;
+};
 
 int llex_init(llex*);
 int llex_cleanup(llex*);
-int llex_set_buffer(llex*, unsigned char*);
+int llex_set_buffer(llex*, char*);
 int llex_set_options(llex*, unsigned int);
 int llex_set_state(llex*, unsigned int);
 int llex_tokenizer(llex*);
-int llex_add_token(llex*, unsigned char*, llex_token_id);
-int llex_add_token_callback(llex*, unsigned char*, llex_callback);
-int llex_add_token_regex(llex*, unsigned char*, llex_token_id);
-int llex_add_token_regex_callback(llex*, unsigned char*, llex_callback);
+int llex_add_token(llex*, char*, llex_token_id);
+int llex_add_token_callback(llex*, char*, llex_callback);
+int llex_add_token_regex(llex*, char*, llex_token_id);
+int llex_add_token_regex_callback(llex*, char*, llex_callback);
 
 #endif /* LLEX_LIBLEX_H */

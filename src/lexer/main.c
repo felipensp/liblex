@@ -25,19 +25,19 @@ enum { /* States */
 	COMMENT
 };
 
-int start_comment_callback(llex *lex, unsigned char *str, size_t len) 
+int start_comment_callback(llex *lex, char *str, size_t len) 
 {
 	llex_set_state(lex, COMMENT);
 	return MYLEXER_START_COMMENT;
 }
 
-int end_comment_callback(llex *lex, unsigned char *str, size_t len) 
+int end_comment_callback(llex *lex, char *str, size_t len) 
 {
 	llex_set_state(lex, INITIAL);
 	return MYLEXER_END_COMMENT;
 }
 
-int number_callback(llex *lex, unsigned char *str, size_t len) 
+int number_callback(llex *lex, char *str, size_t len) 
 {
 	return MYLEXER_NUMBER;
 }

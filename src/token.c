@@ -14,7 +14,7 @@ int llex_init(llex *lex)
 	return 1;
 }
 
-int llex_set_buffer(llex *lex, unsigned char *buffer)
+int llex_set_buffer(llex *lex, char *buffer)
 {
 	lex->buffer_pos = lex->buffer = buffer;
 	
@@ -51,7 +51,7 @@ int llex_cleanup(llex *lex)
 	return 1;
 }
 
-int llex_add_token(llex *lex, unsigned char *token, llex_token_id id)
+int llex_add_token(llex *lex, char *token, llex_token_id id)
 {
 	llex_token *next;
 	llex_token_array *current_array = &lex->token_array[lex->current_state];
@@ -61,7 +61,7 @@ int llex_add_token(llex *lex, unsigned char *token, llex_token_id id)
 	next = &current_array->tokens[current_array->tokens_count];
 	
 	next->token.literal.str = token;
-	next->token.literal.len = strlen((char*) token);
+	next->token.literal.len = strlen(token);
 	next->data.id = id;	
 	next->type = LLEX_LITERAL_TOKEN;
 	
@@ -70,7 +70,7 @@ int llex_add_token(llex *lex, unsigned char *token, llex_token_id id)
 	return 1;
 }
 
-int llex_add_token_callback(llex *lex, unsigned char *token, llex_callback callback)
+int llex_add_token_callback(llex *lex, char *token, llex_callback callback)
 {
 	llex_token *next;
 	llex_token_array *current_array = &lex->token_array[lex->current_state];
@@ -80,7 +80,7 @@ int llex_add_token_callback(llex *lex, unsigned char *token, llex_callback callb
 	next = &current_array->tokens[current_array->tokens_count];
 	
 	next->token.literal.str = token;
-	next->token.literal.len = strlen((char*) token);
+	next->token.literal.len = strlen(token);
 	next->type = LLEX_LITERAL_TOKEN_CALLBACK;	
 	next->data.callback = callback;
 	
@@ -89,7 +89,7 @@ int llex_add_token_callback(llex *lex, unsigned char *token, llex_callback callb
 	return 1;
 }
 
-int llex_add_token_regex(llex *lex, unsigned char *token, llex_token_id id)
+int llex_add_token_regex(llex *lex, char *token, llex_token_id id)
 {
 	llex_token *next;
 	llex_token_array *current_array = &lex->token_array[lex->current_state];
@@ -112,7 +112,7 @@ int llex_add_token_regex(llex *lex, unsigned char *token, llex_token_id id)
 	return 1;
 }
 
-int llex_add_token_regex_callback(llex *lex, unsigned char *token, llex_callback callback)
+int llex_add_token_regex_callback(llex *lex, char *token, llex_callback callback)
 {
 	llex_token *next;
 	llex_token_array *current_array = &lex->token_array[lex->current_state];

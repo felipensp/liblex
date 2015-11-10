@@ -9,7 +9,7 @@
 
 #include <pcre.h>
 
-pcre *llex_regex_compile(unsigned char*);
-int llex_regex_match(llex*, pcre*, unsigned char*);
+pcre *llex_regex_compile(char*);
+int llex_regex_match(llex*, pcre*, char*);
 
 #endif /* LLEX_REGEX_H */

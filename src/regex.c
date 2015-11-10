@@ -7,7 +7,7 @@
 #include "liblex.h"
 #include "regex.h"
 
-pcre *llex_regex_compile(unsigned char *regex)
+pcre *llex_regex_compile(char *regex)
 {
 	int erroroffset;
 	const char *error;
@@ -19,7 +19,7 @@ pcre *llex_regex_compile(unsigned char *regex)
 		NULL);
 }
 
-int llex_regex_match(llex *lex, pcre *regex, unsigned char *buffer)
+int llex_regex_match(llex *lex, pcre *regex, char *buffer)
 {
 	int offsetcount;
 	int offsets[1];
@@ -27,8 +27,8 @@ int llex_regex_match(llex *lex, pcre *regex, unsigned char *buffer)
   
 	offsetcount = pcre_exec(regex, 
 		NULL, 
-		(char*)buffer,
-		strlen((char*)buffer),
+		buffer,
+		strlen(buffer),
 		0,
 		0,
 		offsets,
@@ -36,7 +36,7 @@ int llex_regex_match(llex *lex, pcre *regex, unsigned char *buffer)
 
 	if (offsetcount <= 0) return 1;
 	
-	pcre_get_substring((char*)buffer, offsets, offsetcount, 0, &result);
+	pcre_get_substring(buffer, offsets, offsetcount, 0, &result);
 
 	lex->current_token = lex->buffer_pos;
 	lex->current_len = strlen(result);
