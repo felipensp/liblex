@@ -1,9 +1,9 @@
-# liblex
-A simple C library for lexical analyzer
-
-#### Usage:
-
-```c
+/*
+ * Lexer example
+ * 
+ * Author: Felipe Pena <felipensp at gmail.com>
+ */
+ 
 #include <stdio.h>
 #include <liblex.h>
 
@@ -80,26 +80,3 @@ int main(int argc, char **argv)
 	
 	return 0;
 }
-```
-
-Outputs:
-
-```
-Token id: 9 - State: 0 - '1'
-Token id: 8 - State: 0 - ' '
-Token id: 2 - State: 0 - '-'
-Token id: 8 - State: 0 - ' '
-Token id: 9 - State: 0 - '2'
-Token id: 8 - State: 0 - ' '
-Token id: 1 - State: 0 - '+'
-Token id: 8 - State: 0 - ' '
-Token id: 9 - State: 0 - '3'
-Token id: 8 - State: 0 - ' '
-Token id: 3 - State: 0 - '/'
-Token id: 8 - State: 0 - ' '
-Token id: 9 - State: 0 - '4'
-Token id: 8 - State: 0 - ' '
-Token id: 6 - State: 1 - '/*'
-Token id: 10 - State: 1 - ' ignored str '
-Token id: 7 - State: 0 - '*/'
-```
