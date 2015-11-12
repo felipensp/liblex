@@ -24,7 +24,7 @@ liblex:
 	$(CC) -olexer -I$(INC)/ $(SRC)/lexer/main.c -L$(LIB)/ -llex -lpcre
 
 clean:
-	rm -rf rwelf $(LIB) $(BLD)/*.o
+	rm -rf lexer $(LIB) $(BLD)/*.o $(LIB)/*
 
 install:
 	cp $(LIB)/* $(INSTALLLIB)
