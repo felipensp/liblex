@@ -3,4 +3,5 @@
 - ~~Regex support~~
 - ~~Start condition~~
 - ~~Callback support~~
-- Stream buffer
+- Stream support
+- Location support
