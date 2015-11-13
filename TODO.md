@@ -5,3 +5,5 @@
 - ~~Callback support~~
 - Stream support
 - Location support
+- Stackable states
+- Error recovering
