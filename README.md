@@ -96,3 +96,26 @@ int main(int argc, char **argv)
 	return 0;
 }
 ```
+
+Outputs:
+
+```
+Token id: 9 - State: 0 - '1' - Start: 0:1 / End: 1:1
+Token id: 8 - State: 0 - ' ' - Start: 1:1 / End: 2:1
+Token id: 2 - State: 0 - '-' - Start: 2:1 / End: 3:1
+Token id: 8 - State: 0 - ' ' - Start: 3:1 / End: 4:1
+Token id: 9 - State: 0 - '2' - Start: 4:1 / End: 5:1
+Token id: 8 - State: 0 - ' ' - Start: 5:1 / End: 6:1
+Token id: 1 - State: 0 - '+' - Start: 6:1 / End: 7:1
+Token id: 8 - State: 0 - ' ' - Start: 7:1 / End: 8:1
+Token id: 9 - State: 0 - '3' - Start: 8:1 / End: 9:1
+Token id: 8 - State: 0 - ' ' - Start: 9:1 / End: 10:1
+Token id: 3 - State: 0 - '/' - Start: 10:1 / End: 11:1
+Token id: 8 - State: 0 - ' ' - Start: 11:1 / End: 12:1
+Token id: 9 - State: 0 - '4' - Start: 12:1 / End: 13:1
+Token id: 8 - State: 0 - ' 
+' - Start: 13:1 / End: 1:2
+Token id: 6 - State: 1 - '/*' - Start: 1:2 / End: 3:2
+Token id: 10 - State: 1 - ' ignored str ' - Start: 3:2 / End: 16:2
+Token id: 7 - State: 0 - '*/' - Start: 16:2 / End: 18:2
+```
