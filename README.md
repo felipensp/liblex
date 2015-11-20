@@ -8,6 +8,12 @@ C library for Lexical Analysis
 #### Usage:
 
 ```c
+/*
+ * Lexer example
+ * 
+ * Author: Felipe Pena <felipensp at gmail.com>
+ */
+ 
 #include <stdio.h>
 #include <liblex.h>
 
@@ -29,19 +35,19 @@ enum { /* States */
 	COMMENT
 };
 
-int start_comment_callback(llex *lex, unsigned char *str, size_t len) 
+int start_comment_callback(llex *lex, char *str, size_t len) 
 {
 	llex_set_state(lex, COMMENT);
 	return MYLEXER_START_COMMENT;
 }
 
-int end_comment_callback(llex *lex, unsigned char *str, size_t len) 
+int end_comment_callback(llex *lex, char *str, size_t len) 
 {
 	llex_set_state(lex, INITIAL);
 	return MYLEXER_END_COMMENT;
 }
 
-int number_callback(llex *lex, unsigned char *str, size_t len) 
+int number_callback(llex *lex, char *str, size_t len) 
 {
 	return MYLEXER_NUMBER;
 }
@@ -52,7 +58,8 @@ int main(int argc, char **argv)
 	llex_token_id token_id;
 		
 	llex_init(&lex);
-	llex_set_buffer(&lex, "1 - 2 + 3 / 4 /* ignored str */");
+	llex_set_buffer(&lex, "1 - 2 + 3 / 4 \n"
+						  "/* ignored str */");
 	
 	llex_set_state(&lex, INITIAL);
 	llex_add_token_callback(&lex, "/*", start_comment_callback);
@@ -70,11 +77,15 @@ int main(int argc, char **argv)
 	llex_add_token_regex_callback(&lex, "\\d+", number_callback);
 	
 	while ((token_id = llex_tokenizer(&lex)) > 0) {
-		printf("Token id: %d - State: %d - '%.*s'\n",
+		printf("Token id: %d - State: %d - '%.*s' - Start: %d:%d / End: %d:%d\n",
 			token_id, 
 			lex.current_state,
 			lex.current_len,
-			lex.current_token);
+			lex.current_token,
+			lex.buffer_col_start,
+			lex.buffer_line_start,
+			lex.buffer_col_end,			
+			lex.buffer_line_end);
 	}
 	if (token_id == -1) {
 		printf("Unknown string `%s'\n", lex.current_token);
@@ -84,26 +95,4 @@ int main(int argc, char **argv)
 	
 	return 0;
 }
-```
-
-Outputs:
-
-```
-Token id: 9 - State: 0 - '1'
-Token id: 8 - State: 0 - ' '
-Token id: 2 - State: 0 - '-'
-Token id: 8 - State: 0 - ' '
-Token id: 9 - State: 0 - '2'
-Token id: 8 - State: 0 - ' '
-Token id: 1 - State: 0 - '+'
-Token id: 8 - State: 0 - ' '
-Token id: 9 - State: 0 - '3'
-Token id: 8 - State: 0 - ' '
-Token id: 3 - State: 0 - '/'
-Token id: 8 - State: 0 - ' '
-Token id: 9 - State: 0 - '4'
-Token id: 8 - State: 0 - ' '
-Token id: 6 - State: 1 - '/*'
-Token id: 10 - State: 1 - ' ignored str '
-Token id: 7 - State: 0 - '*/'
 ```
