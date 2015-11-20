@@ -16,7 +16,8 @@ int llex_init(llex *lex)
 
 int llex_set_buffer(llex *lex, char *buffer)
 {
-	lex->buffer_pos = lex->buffer = buffer;
+	lex->current_line_pos = lex->buffer_pos = lex->buffer = buffer;
+	lex->current_line = 1;
 	
 	return 1;
 }

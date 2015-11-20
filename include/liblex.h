@@ -56,6 +56,12 @@ typedef struct {
 struct _llex {
 	char *buffer;                                 /* Buffer to be read */
 	char *buffer_pos;                             /* Current buffer position */
+	int buffer_col_start;                         /* Start column position */
+	int buffer_col_end;                           /* End column position */
+	int buffer_line_start;                        /* Start line location */
+	int buffer_line_end;                          /* End line location */
+	int current_line;                             /* Current line */
+	char *current_line_pos;                       /* Current line position */
 	char *current_token;                          /* Current token */
 	int current_len;                              /* Current token length */
 	unsigned int current_state;                   /* Current state */

@@ -48,7 +48,8 @@ int main(int argc, char **argv)
 	llex_token_id token_id;
 		
 	llex_init(&lex);
-	llex_set_buffer(&lex, "1 - 2 + 3 / 4 /* ignored str */");
+	llex_set_buffer(&lex, "1 - 2 + 3 / 4 \n"
+						  "/* ignored str */");
 	
 	llex_set_state(&lex, INITIAL);
 	llex_add_token_callback(&lex, "/*", start_comment_callback);
@@ -66,11 +67,15 @@ int main(int argc, char **argv)
 	llex_add_token_regex_callback(&lex, "\\d+", number_callback);
 	
 	while ((token_id = llex_tokenizer(&lex)) > 0) {
-		printf("Token id: %d - State: %d - '%.*s'\n",
+		printf("Token id: %d - State: %d - '%.*s' - Start: %d:%d / End: %d:%d\n",
 			token_id, 
 			lex.current_state,
 			lex.current_len,
-			lex.current_token);
+			lex.current_token,
+			lex.buffer_col_start,
+			lex.buffer_line_start,
+			lex.buffer_col_end,			
+			lex.buffer_line_end);
 	}
 	if (token_id == -1) {
 		printf("Unknown string `%s'\n", lex.current_token);
