@@ -1,5 +1,5 @@
 CC?=gcc
-
+CFLAGS=-fPIC -g -c -Wall -std=c99
 SRC=src
 BLD=build
 INC=include
@@ -10,18 +10,19 @@ INSTALLINC=/usr/include
 INSTALLLIB=/lib
 INSTALLBIN=/usr/bin
 
-liblex:
-	mkdir -p $(BLD)
-	$(CC) -fPIC -g -c -Wall -std=c99 -I$(INC)/ -o$(BLD)/tokenizer.o $(SRC)/tokenizer.c
-	$(CC) -fPIC -g -c -Wall -std=c99 -I$(INC)/ -o$(BLD)/token.o $(SRC)/token.c
-	$(CC) -fPIC -g -c -Wall -std=c99 -I$(INC)/ -o$(BLD)/regex.o $(SRC)/regex.c
+lexer:	liblex
+	$(CC) -olexer -I$(INC)/ $(SRC)/lexer/main.c -L$(LIB)/ -llex -lpcre
 
-	mkdir -p $(LIB)	
+liblex:
+	@mkdir -p $(BLD)
+	$(CC) $(CFLAGS) -I$(INC)/ -o$(BLD)/tokenizer.o $(SRC)/tokenizer.c
+	$(CC) $(CFLAGS) -I$(INC)/ -o$(BLD)/token.o $(SRC)/token.c
+	$(CC) $(CFLAGS) -I$(INC)/ -o$(BLD)/regex.o $(SRC)/regex.c
+	@mkdir -p $(LIB)
 	$(CC) -shared -Wl,-soname,$(LIB)/liblex.so.0 -o$(LIB)/liblex.so.0.1.0 $(OBJS)
 	ln -sf liblex.so.0.1.0 $(LIB)/liblex.so.0
 	ln -sf liblex.so.0.1.0 $(LIB)/liblex.so
 
-	$(CC) -olexer -I$(INC)/ $(SRC)/lexer/main.c -L$(LIB)/ -llex -lpcre
 
 clean:
 	rm -rf lexer $(LIB) $(BLD)/*.o $(LIB)/*
