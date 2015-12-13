@@ -23,7 +23,6 @@ liblex:
 	ln -sf liblex.so.0.1.0 $(LIB)/liblex.so.0
 	ln -sf liblex.so.0.1.0 $(LIB)/liblex.so
 
-
 clean:
 	rm -rf lexer $(LIB) $(BLD)/*.o $(LIB)/*
 
